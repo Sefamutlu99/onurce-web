@@ -1,50 +1,628 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+const projects = [
+	{
+		name: "Konut Geliştirme",
+		scope: "Kaba inşaat, ince işler ve teslim koordinasyonu",
+		meta: "Planlı saha yönetimi",
+	},
+	{
+		name: "Ticari Alanlar",
+		scope: "Mağaza, ofis ve karma kullanım uygulamaları",
+		meta: "İş programı odaklı",
+	},
+	{
+		name: "Yapı Yenileme",
+		scope: "Mevcut yapılarda güçlendirme, dönüşüm ve modernizasyon",
+		meta: "Kontrollü uygulama",
+	},
+];
+
+const articles = [
+	"Doğru metraj ve keşif süreci bütçe sürprizlerini nasıl azaltır?",
+	"Şantiyede haftalık raporlama neden teslim kalitesini yükseltir?",
+	"Anahtar teslim projelerde müşteri karar noktaları nasıl planlanır?",
+];
+
+const schema = {
+	"@context": "https://schema.org",
+	"@type": "GeneralContractor",
+	name: SITE_TITLE,
+	description: SITE_DESCRIPTION,
+	areaServed: "Türkiye",
+	url: Astro.site?.toString(),
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero" aria-labelledby="hero-title">
+				<div class="container hero-inner">
+					<div class="hero-content">
+						<span class="eyebrow">Genel müteahhitlik</span>
+						<h1 id="hero-title">Sağlam yapı. Net süreç. Güvenilir teslim.</h1>
+						<p>
+							Onurce İnşaat; konut, ticari alan ve yenileme projelerinde planlama,
+							uygulama ve teslim adımlarını tek bir disiplin altında yönetir.
+						</p>
+						<div class="hero-actions">
+							<a class="button" href="#iletisim">İnşaatınıza Başlayın</a>
+							<a class="button secondary" href="#projeler">Projeleri Keşfedin</a>
+						</div>
+					</div>
+					<div class="hero-panel" aria-label="Proje yönetimi özeti">
+						<div>
+							<span>01</span>
+							<strong>Keşif</strong>
+							<p>Saha, ihtiyaç ve bütçe doğrulaması.</p>
+						</div>
+						<div>
+							<span>02</span>
+							<strong>Planlama</strong>
+							<p>Program, ekip ve tedarik takvimi.</p>
+						</div>
+						<div>
+							<span>03</span>
+							<strong>Teslim</strong>
+							<p>Kalite kontrol ve kapanış raporu.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="about" id="hakkimizda" aria-labelledby="about-title">
+				<div class="container split">
+					<div>
+						<span class="eyebrow">Hakkımızda</span>
+						<h2 id="about-title">Projeyi sahada görünür kılan yönetim.</h2>
+					</div>
+					<div class="copy-stack">
+						<p>
+							İyi bir yapı yalnızca malzeme ve işçilikle değil, kararların zamanında
+							alındığı, bütçenin takip edildiği ve ekiplerin aynı hedefe bağlandığı bir
+							süreçle ortaya çıkar.
+						</p>
+						<p>
+							Onurce İnşaat, her projede kapsamı netleştirir, uygulamayı ölçülebilir
+							aşamalara böler ve müşteriye düzenli bilgi akışı sağlar.
+						</p>
+						<a class="text-link" href="#model">Çalışma modelimizi inceleyin</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="process" id="model" aria-labelledby="model-title">
+				<div class="container">
+					<div class="section-head">
+						<span class="eyebrow">Nasıl çalışıyoruz</span>
+						<h2 id="model-title">Tekliften teslimata kontrollü akış.</h2>
+					</div>
+					<div class="process-grid">
+						<article>
+							<span>01</span>
+							<h3>Keşif ve kapsam</h3>
+							<p>İhtiyaç, metraj, saha koşulu ve öncelikler birlikte netleştirilir.</p>
+						</article>
+						<article>
+							<span>02</span>
+							<h3>Program ve bütçe</h3>
+							<p>İş programı, kaynak planı ve maliyet kalemleri görünür hale getirilir.</p>
+						</article>
+						<article>
+							<span>03</span>
+							<h3>Uygulama ve rapor</h3>
+							<p>Saha ilerlemesi düzenli kontrol edilir, kritik kararlar gecikmeden alınır.</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<section class="logos" aria-label="İş ortaklığı alanları">
+				<div class="container logo-row">
+					<span>Konut</span>
+					<span>Ticari</span>
+					<span>Yenileme</span>
+					<span>Kaba İnşaat</span>
+					<span>İnce İşler</span>
+				</div>
+			</section>
+
+			<section class="featured" aria-labelledby="featured-title">
+				<div class="container featured-grid">
+					<div class="featured-block">
+						<span class="eyebrow">Öne çıkan yaklaşım</span>
+						<h2 id="featured-title">Anahtar teslim projelerde tek muhatap rahatlığı.</h2>
+						<p>
+							Tasarım kararlarından saha uygulamasına kadar bütün adımlar aynı proje
+							disipliniyle izlenir. Böylece işveren, ayrı ekipler arasında koordinasyon
+							yükü taşımadan ilerlemeyi takip eder.
+						</p>
+						<a class="button" href="#iletisim">Projenizi Anlatın</a>
+					</div>
+					<div class="metrics" aria-label="Hizmet odakları">
+						<div><strong>3</strong><span>Ana hizmet modeli</span></div>
+						<div><strong>360</strong><span>Derece proje takibi</span></div>
+						<div><strong>1</strong><span>Tek sorumlu ekip</span></div>
+					</div>
+				</div>
+			</section>
+
+			<section class="projects" id="projeler" aria-labelledby="projects-title">
+				<div class="container">
+					<div class="section-head">
+						<span class="eyebrow">Projeler</span>
+						<h2 id="projects-title">Kapsamı net, teslimi takip edilebilir işler.</h2>
+					</div>
+					<div class="project-grid">
+						{
+							projects.map((project) => (
+								<article>
+									<span>{project.meta}</span>
+									<h3>{project.name}</h3>
+									<p>{project.scope}</p>
+									<a href="#iletisim" aria-label={`${project.name} için iletişime geç`}>
+										Keşfet
+									</a>
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</section>
+
+			<section class="testimonials" aria-labelledby="testimonials-title">
+				<div class="container testimonial-grid">
+					<div>
+						<span class="eyebrow">Referanslar</span>
+						<h2 id="testimonials-title">Güven, sahadaki düzenle kazanılır.</h2>
+					</div>
+					<blockquote>
+						<p>
+							“Proje boyunca her aşama takvim, bütçe ve kalite başlıklarıyla net
+							raporlandı. Karar almamız gereken noktaları önceden görmemiz işi çok
+							kolaylaştırdı.”
+						</p>
+						<cite>Kurumsal işveren temsilcisi</cite>
+					</blockquote>
+				</div>
+			</section>
+
+			<section class="articles" aria-labelledby="articles-title">
+				<div class="container">
+					<div class="section-head">
+						<span class="eyebrow">Makaleler</span>
+						<h2 id="articles-title">Süreç, bütçe ve saha yönetimi notları.</h2>
+					</div>
+					<div class="article-grid">
+						{
+							articles.map((article) => (
+								<article>
+									<p>{article}</p>
+									<a href="#iletisim">Devamını oku</a>
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</section>
+
+			<section class="contact" id="iletisim" aria-labelledby="contact-title">
+				<div class="container contact-grid">
+					<div>
+						<span class="eyebrow">İletişim</span>
+						<h2 id="contact-title">Bir sonraki projenizi planlayalım.</h2>
+						<p>
+							Proje türünüzü, hedef takviminizi ve iletişim bilgilerinizi paylaşın; ilk
+							değerlendirme için sizinle bağlantı kuralım.
+						</p>
+					</div>
+					<form>
+						<label for="project-type">Proje türü</label>
+						<select id="project-type" name="project-type">
+							<option>Konut projesi</option>
+							<option>Ticari alan</option>
+							<option>Yenileme / tadilat</option>
+						</select>
+
+						<label for="timeline">Hedef zaman çizelgesi</label>
+						<input id="timeline" name="timeline" type="text" placeholder="Örn. 3 ay içinde" />
+
+						<label for="name">Ad Soyad</label>
+						<input id="name" name="name" type="text" autocomplete="name" />
+
+						<label for="email">E-posta</label>
+						<input id="email" name="email" type="email" autocomplete="email" />
+
+						<label for="message">Kısa açıklama</label>
+						<textarea id="message" name="message" rows="4"></textarea>
+
+						<button type="submit">Talep Gönder</button>
+					</form>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.hero {
+		min-height: calc(100vh - 78px);
+		background:
+			linear-gradient(90deg, rgba(19, 14, 11, 0.95), rgba(61, 42, 38, 0.86)),
+			repeating-linear-gradient(
+				135deg,
+				rgba(253, 253, 254, 0.08) 0,
+				rgba(253, 253, 254, 0.08) 1px,
+				transparent 1px,
+				transparent 24px
+			);
+		color: var(--klasik-white);
+	}
+
+	.hero-inner {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 340px;
+		align-items: end;
+		gap: 48px;
+		min-height: calc(100vh - 108px);
+		padding: 80px 0 44px;
+	}
+
+	.hero-content p {
+		max-width: 680px;
+		margin-top: 24px;
+		color: rgba(253, 253, 254, 0.78);
+		font-size: 1.18rem;
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+		margin-top: 34px;
+	}
+
+	.hero-panel {
+		display: grid;
+		border: 1px solid rgba(253, 253, 254, 0.26);
+		background: rgba(253, 253, 254, 0.06);
+	}
+
+	.hero-panel div {
+		padding: 24px;
+		border-bottom: 1px solid rgba(253, 253, 254, 0.18);
+	}
+
+	.hero-panel div:last-child {
+		border-bottom: 0;
+	}
+
+	.hero-panel span,
+	.process-grid span,
+	.project-grid span {
+		color: var(--klasik-accent);
+		font-size: 0.78rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.hero-panel strong {
+		display: block;
+		margin-top: 8px;
+		font-size: 1.35rem;
+	}
+
+	.hero-panel p {
+		margin-top: 6px;
+		color: rgba(253, 253, 254, 0.66);
+	}
+
+	.about,
+	.projects,
+	.articles {
+		background: var(--klasik-white);
+	}
+
+	.split,
+	.testimonial-grid,
+	.contact-grid,
+	.featured-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+		gap: 58px;
+		padding: 92px 0;
+	}
+
+	.copy-stack {
+		display: grid;
+		gap: 20px;
+		color: rgba(19, 14, 11, 0.72);
+		font-size: 1.08rem;
+	}
+
+	.text-link,
+	.project-grid a,
+	.article-grid a {
+		color: var(--klasik-accent);
+		font-size: 0.84rem;
+		font-weight: 800;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+
+	.process,
+	.contact {
+		background: var(--klasik-cream);
+	}
+
+	.section-head {
+		display: grid;
+		gap: 16px;
+		max-width: 860px;
+		padding: 78px 0 34px;
+	}
+
+	.process-grid,
+	.project-grid,
+	.article-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1px;
+		padding-bottom: 76px;
+		background: rgba(19, 14, 11, 0.12);
+	}
+
+	.process-grid article,
+	.project-grid article,
+	.article-grid article {
+		display: grid;
+		align-content: start;
+		gap: 18px;
+		min-height: 250px;
+		padding: 30px;
+		background: var(--klasik-white);
+	}
+
+	.process-grid article {
+		background: var(--klasik-cream);
+	}
+
+	.logos {
+		background: var(--klasik-dark);
+		color: var(--klasik-white);
+	}
+
+	.logo-row {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 1px;
+		padding: 20px 0;
+	}
+
+	.logo-row span {
+		display: grid;
+		place-items: center;
+		min-height: 86px;
+		border: 1px solid rgba(253, 253, 254, 0.18);
+		color: rgba(253, 253, 254, 0.7);
+		font-size: 0.78rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.featured {
+		background: var(--klasik-brown);
+		color: var(--klasik-white);
+	}
+
+	.featured-block {
+		display: grid;
+		align-content: center;
+		gap: 22px;
+	}
+
+	.featured-block p {
+		color: rgba(253, 253, 254, 0.76);
+	}
+
+	.featured-block .button {
+		justify-self: start;
+	}
+
+	.metrics {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1px;
+		background: rgba(253, 253, 254, 0.18);
+	}
+
+	.metrics div {
+		display: grid;
+		align-content: center;
+		min-height: 280px;
+		padding: 26px;
+		background: rgba(19, 14, 11, 0.2);
+	}
+
+	.metrics strong {
+		font-size: clamp(3rem, 7vw, 5.5rem);
+		line-height: 1;
+	}
+
+	.metrics span {
+		margin-top: 12px;
+		color: rgba(253, 253, 254, 0.7);
+		font-size: 0.86rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	blockquote {
+		margin: 0;
+		padding: 34px;
+		border-left: 6px solid var(--klasik-accent);
+		background: var(--klasik-cream);
+	}
+
+	blockquote p {
+		font-size: 1.28rem;
+		line-height: 1.45;
+	}
+
+	cite {
+		display: block;
+		margin-top: 20px;
+		color: rgba(19, 14, 11, 0.62);
+		font-style: normal;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.article-grid article {
+		min-height: 210px;
+	}
+
+	.contact-grid > div {
+		display: grid;
+		align-content: start;
+		gap: 20px;
+	}
+
+	.contact-grid > div p {
+		color: rgba(19, 14, 11, 0.72);
+	}
+
+	form {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+		padding: 30px;
+		background: var(--klasik-white);
+	}
+
+	label {
+		align-self: end;
+		color: rgba(19, 14, 11, 0.72);
+		font-size: 0.78rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	input,
+	select,
+	textarea {
+		width: 100%;
+		border: 1px solid rgba(19, 14, 11, 0.18);
+		border-radius: 0;
+		background: var(--klasik-white);
+		color: var(--klasik-dark);
+	}
+
+	input,
+	select {
+		min-height: 48px;
+		padding: 0 12px;
+	}
+
+	textarea {
+		grid-column: 1 / -1;
+		padding: 12px;
+		resize: vertical;
+	}
+
+	label[for="message"] {
+		grid-column: 1 / -1;
+	}
+
+	input:focus,
+	select:focus,
+	textarea:focus {
+		outline: 2px solid var(--klasik-accent);
+		outline-offset: 2px;
+	}
+
+	button {
+		grid-column: 1 / -1;
+		min-height: 54px;
+		border: 0;
+		border-radius: 0;
+		background: var(--klasik-accent);
+		color: var(--klasik-white);
+		font-weight: 800;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+
+	button:hover {
+		background: var(--klasik-dark);
+	}
+
+	@media (max-width: 767px) {
+		.hero {
+			min-height: auto;
+		}
+
+		.hero-inner,
+		.split,
+		.testimonial-grid,
+		.contact-grid,
+		.featured-grid {
+			grid-template-columns: 1fr;
+			gap: 30px;
+			min-height: auto;
+			padding: 58px 0;
+		}
+
+		.process-grid,
+		.project-grid,
+		.article-grid,
+		.logo-row,
+		.metrics {
+			grid-template-columns: 1fr;
+		}
+
+		.section-head {
+			padding: 52px 0 28px;
+		}
+
+		.process-grid,
+		.project-grid,
+		.article-grid {
+			padding-bottom: 52px;
+		}
+
+		form {
+			grid-template-columns: 1fr;
+			padding: 22px;
+		}
+	}
+
+	@media (max-width: 479px) {
+		.hero-actions {
+			flex-direction: column;
+		}
+
+		.button {
+			width: 100%;
+		}
+
+		.process-grid article,
+		.project-grid article,
+		.article-grid article,
+		blockquote {
+			padding: 24px;
+		}
+	}
+</style>
