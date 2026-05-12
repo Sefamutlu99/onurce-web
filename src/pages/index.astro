@@ -9,23 +9,41 @@ const projects = [
 		name: "Konut Geliştirme",
 		scope: "Kaba inşaat, ince işler ve teslim koordinasyonu",
 		meta: "Planlı saha yönetimi",
+		image: "/stock/concrete-workers.jpg",
+		alt: "Yeni yapı şantiyesinde beton yüzey üzerinde çalışan ekip",
 	},
 	{
 		name: "Ticari Alanlar",
 		scope: "Mağaza, ofis ve karma kullanım uygulamaları",
 		meta: "İş programı odaklı",
+		image: "/stock/warehouse-floor.jpg",
+		alt: "Geniş bir ticari alanda zemin uygulamasını kontrol eden inşaat ekibi",
 	},
 	{
 		name: "Yapı Yenileme",
 		scope: "Mevcut yapılarda güçlendirme, dönüşüm ve modernizasyon",
 		meta: "Kontrollü uygulama",
+		image: "/stock/architecture-plans.jpg",
+		alt: "Mimari proje çizimleri üzerinde yapılan planlama çalışması",
 	},
 ];
 
 const articles = [
-	"Doğru metraj ve keşif süreci bütçe sürprizlerini nasıl azaltır?",
-	"Şantiyede haftalık raporlama neden teslim kalitesini yükseltir?",
-	"Anahtar teslim projelerde müşteri karar noktaları nasıl planlanır?",
+	{
+		title: "Doğru metraj ve keşif süreci bütçe sürprizlerini nasıl azaltır?",
+		image: "/stock/architecture-plans.jpg",
+		alt: "Mimari planlar, cetvel ve kalemlerle yapılan keşif çalışması",
+	},
+	{
+		title: "Şantiyede haftalık raporlama neden teslim kalitesini yükseltir?",
+		image: "/stock/hero-construction.jpg",
+		alt: "Prekast beton elemanları inceleyen iki saha sorumlusu",
+	},
+	{
+		title: "Anahtar teslim projelerde müşteri karar noktaları nasıl planlanır?",
+		image: "/stock/warehouse-floor.jpg",
+		alt: "Endüstriyel iç mekanda beton zemin uygulaması",
+	},
 ];
 
 const schema = {
@@ -41,13 +59,18 @@ const schema = {
 <!doctype html>
 <html lang="tr">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image="/stock/hero-construction.jpg" />
 		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
 	<body>
 		<Header />
 		<main>
 			<section class="hero" aria-labelledby="hero-title">
+				<img
+					class="hero-image"
+					src="/stock/hero-construction.jpg"
+					alt="Beton yapı elemanlarını inceleyen inşaat mühendisleri"
+				/>
 				<div class="container hero-inner">
 					<div class="hero-content">
 						<span class="eyebrow">Genel müteahhitlik</span>
@@ -150,6 +173,10 @@ const schema = {
 						</p>
 						<a class="button" href="#iletisim">Projenizi Anlatın</a>
 					</div>
+					<figure class="featured-media">
+						<img src="/stock/architecture-plans.jpg" alt="Mimari çizimler üzerinde proje planlama masası" />
+						<figcaption>Keşif, bütçe ve uygulama planı aynı masada netleştirilir.</figcaption>
+					</figure>
 					<div class="metrics" aria-label="Hizmet odakları">
 						<div><strong>3</strong><span>Ana hizmet modeli</span></div>
 						<div><strong>360</strong><span>Derece proje takibi</span></div>
@@ -168,6 +195,7 @@ const schema = {
 						{
 							projects.map((project) => (
 								<article>
+									<img src={project.image} alt={project.alt} />
 									<span>{project.meta}</span>
 									<h3>{project.name}</h3>
 									<p>{project.scope}</p>
@@ -208,7 +236,8 @@ const schema = {
 						{
 							articles.map((article) => (
 								<article>
-									<p>{article}</p>
+									<img src={article.image} alt={article.alt} />
+									<p>{article.title}</p>
 									<a href="#iletisim">Devamını oku</a>
 								</article>
 							))
@@ -258,17 +287,46 @@ const schema = {
 
 <style>
 	.hero {
+		position: relative;
+		isolation: isolate;
 		min-height: calc(100vh - 78px);
-		background:
-			linear-gradient(90deg, rgba(19, 14, 11, 0.95), rgba(61, 42, 38, 0.86)),
-			repeating-linear-gradient(
-				135deg,
-				rgba(253, 253, 254, 0.08) 0,
-				rgba(253, 253, 254, 0.08) 1px,
-				transparent 1px,
-				transparent 24px
-			);
+		overflow: hidden;
+		background: var(--klasik-dark);
 		color: var(--klasik-white);
+	}
+
+	.hero::before {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background:
+			linear-gradient(90deg, rgba(19, 14, 11, 0.94) 0%, rgba(19, 14, 11, 0.74) 48%, rgba(19, 14, 11, 0.34) 100%),
+			linear-gradient(0deg, rgba(19, 14, 11, 0.5), rgba(19, 14, 11, 0.05));
+		content: "";
+	}
+
+	.hero::after {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: repeating-linear-gradient(
+			135deg,
+			rgba(253, 253, 254, 0.1) 0,
+			rgba(253, 253, 254, 0.1) 1px,
+			transparent 1px,
+			transparent 24px
+		);
+		content: "";
+	}
+
+	.hero-image {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
 	}
 
 	.hero-inner {
@@ -297,7 +355,8 @@ const schema = {
 	.hero-panel {
 		display: grid;
 		border: 1px solid rgba(253, 253, 254, 0.26);
-		background: rgba(253, 253, 254, 0.06);
+		background: rgba(19, 14, 11, 0.42);
+		backdrop-filter: blur(8px);
 	}
 
 	.hero-panel div {
@@ -340,7 +399,7 @@ const schema = {
 	.contact-grid,
 	.featured-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+		grid-template-columns: minmax(0, 0.88fr) minmax(280px, 0.82fr) minmax(0, 0.72fr);
 		gap: 58px;
 		padding: 92px 0;
 	}
@@ -441,9 +500,29 @@ const schema = {
 		justify-self: start;
 	}
 
+	.featured-media {
+		align-self: stretch;
+		margin: 0;
+		background: rgba(253, 253, 254, 0.08);
+	}
+
+	.featured-media img {
+		height: 100%;
+		min-height: 420px;
+		object-fit: cover;
+	}
+
+	.featured-media figcaption {
+		padding: 16px 18px;
+		color: rgba(253, 253, 254, 0.72);
+		font-size: 0.86rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
 	.metrics {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: 1fr;
 		gap: 1px;
 		background: rgba(253, 253, 254, 0.18);
 	}
@@ -451,7 +530,7 @@ const schema = {
 	.metrics div {
 		display: grid;
 		align-content: center;
-		min-height: 280px;
+		min-height: 150px;
 		padding: 26px;
 		background: rgba(19, 14, 11, 0.2);
 	}
@@ -492,6 +571,19 @@ const schema = {
 
 	.article-grid article {
 		min-height: 210px;
+	}
+
+	.project-grid img,
+	.article-grid img {
+		width: calc(100% + 60px);
+		max-width: none;
+		height: 210px;
+		margin: -30px -30px 6px;
+		object-fit: cover;
+	}
+
+	.article-grid img {
+		height: 168px;
 	}
 
 	.contact-grid > div {
@@ -585,6 +677,12 @@ const schema = {
 			padding: 58px 0;
 		}
 
+		.hero::before {
+			background:
+				linear-gradient(180deg, rgba(19, 14, 11, 0.9) 0%, rgba(19, 14, 11, 0.72) 58%, rgba(19, 14, 11, 0.52) 100%),
+				linear-gradient(0deg, rgba(19, 14, 11, 0.28), rgba(19, 14, 11, 0.18));
+		}
+
 		.process-grid,
 		.project-grid,
 		.article-grid,
@@ -607,6 +705,10 @@ const schema = {
 			grid-template-columns: 1fr;
 			padding: 22px;
 		}
+
+		.featured-media img {
+			min-height: 280px;
+		}
 	}
 
 	@media (max-width: 479px) {
@@ -623,6 +725,12 @@ const schema = {
 		.article-grid article,
 		blockquote {
 			padding: 24px;
+		}
+
+		.project-grid img,
+		.article-grid img {
+			width: calc(100% + 48px);
+			margin: -24px -24px 4px;
 		}
 	}
 </style>
